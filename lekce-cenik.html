@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilates Art — Wireframe: Lekce a ceník v1</title>
+<style>
+  :root{
+    --ink:#1a1a1a;--gray-1:#f5f5f4;--gray-2:#e7e7e5;--gray-3:#c9c9c6;--gray-4:#8a8a86;
+    --note:#fff8e1;--note-border:#e6c84a;--maxw:1080px;--narrow:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .narrow{max-width:var(--narrow);margin:0 auto;padding:0 24px}
+
+  .wf-bar{position:relative;z-index:50;background:var(--ink);color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px}
+  .wf-bar button{background:#fff;color:var(--ink);border:0;padding:6px 14px;border-radius:4px;font-size:13px;cursor:pointer;font-weight:600}
+  .note{background:var(--note);border-left:4px solid var(--note-border);padding:12px 16px;font-size:13px;color:#5c4d00;margin:0 auto;max-width:var(--maxw)}
+  .note b{display:block;margin-bottom:2px}
+  body.clean .note{display:none}
+
+  .ph{background:repeating-linear-gradient(45deg,var(--gray-1),var(--gray-1) 12px,var(--gray-2) 12px,var(--gray-2) 24px);border:1px dashed var(--gray-3);display:flex;align-items:center;justify-content:center;color:var(--gray-4);font-size:13px;text-align:center;padding:12px}
+
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-4);font-weight:600;margin-bottom:12px}
+  h1{font-size:clamp(30px,4.5vw,46px);line-height:1.14;letter-spacing:-.01em;font-weight:700}
+  h2{font-size:clamp(23px,3vw,32px);line-height:1.2;letter-spacing:-.01em;font-weight:700;margin-bottom:14px}
+  h3{font-size:19px;font-weight:700;margin-bottom:8px}
+  .lead{font-size:18px;color:#3c3c3a}
+  p.body{font-size:16px;color:#3c3c3a;margin-bottom:14px}
+  section{padding:64px 0;border-bottom:1px solid var(--gray-2)}
+
+  .btn{display:inline-block;padding:14px 26px;border-radius:6px;font-weight:700;font-size:15px;text-decoration:none;text-align:center}
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-secondary{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+  .btn-sm{padding:10px 18px;font-size:14px}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+  header.site{border-bottom:1px solid var(--gray-2);padding:16px 0;background:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:18px;letter-spacing:.02em}
+  .logo span{display:block;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-4)}
+  .nav ul{display:flex;list-style:none;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:500}
+  .nav a{color:var(--ink);text-decoration:none}
+  .nav .current{border-bottom:2px solid var(--ink);padding-bottom:2px}
+  .nav .btn{padding:10px 18px;font-size:14px}
+
+  /* hero */
+  .hero{padding:60px 0 52px}
+  .hero .lead{max-width:600px}
+
+  /* typy lekci */
+  .ltype{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;align-items:center;padding:40px 0;border-top:1px solid var(--gray-2)}
+  .ltype:first-of-type{border-top:0;padding-top:8px}
+  .ltype.rev .media{order:2}
+  .ltype .ph{min-height:280px;border-radius:8px}
+  .ltype .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--gray-1);padding:5px 12px;border-radius:99px;color:var(--gray-4);margin-bottom:12px}
+  .ltype ul.feat{list-style:none;margin:14px 0 0;font-size:15px;color:#3c3c3a}
+  .ltype ul.feat li{padding:5px 0 5px 24px;position:relative}
+  .ltype ul.feat li::before{content:"✓";position:absolute;left:0;font-weight:800;color:var(--ink)}
+  .specrow{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--gray-4)}
+  .specrow b{color:var(--ink);font-weight:700}
+
+  /* cenik */
+  .price-section{background:var(--gray-1)}
+  .price-block{margin-top:36px}
+  .price-block h3{font-size:20px;margin-bottom:4px}
+  .price-block .sub{font-size:14px;color:var(--gray-4);margin-bottom:16px}
+  .ptable{background:#fff;border:1px solid var(--gray-2);border-radius:10px;overflow:hidden}
+  .prow{display:grid;grid-template-columns:1fr auto;gap:16px;padding:16px 22px;border-top:1px solid var(--gray-2);align-items:center}
+  .prow:first-child{border-top:0}
+  .prow .label{font-size:15px;color:#3c3c3a}
+  .prow .label b{color:var(--ink)}
+  .prow .label small{display:block;color:var(--gray-4);font-size:13px;margin-top:2px}
+  .prow .amt{font-size:18px;font-weight:800;white-space:nowrap}
+  .prow.best{background:#fafaf8}
+  .prow.best .amt::after{content:"nejvýhodnější";display:block;font-size:11px;font-weight:600;color:var(--gray-4);text-align:right;letter-spacing:.04em}
+
+  .kredit-note{margin-top:18px;font-size:14px;color:#3c3c3a;background:#fff;border:1px solid var(--gray-2);border-left:4px solid var(--ink);border-radius:8px;padding:16px 20px}
+  .kredit-note b{display:block;margin-bottom:4px}
+
+  /* uvodni highlight */
+  .intro-cta{border:2px solid var(--ink);border-radius:12px;padding:32px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;margin-top:8px}
+  .intro-cta .amount{font-size:36px;font-weight:800;line-height:1}
+  .intro-cta .amount small{display:block;font-size:14px;font-weight:500;color:var(--gray-4);margin-top:6px}
+
+  /* kredit jak funguje */
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+  .how .card{background:var(--gray-1);border-radius:8px;padding:24px}
+  .how .num{font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--gray-4);margin-bottom:8px}
+  .how p{font-size:14px;color:#3c3c3a}
+
+  /* final */
+  .final{background:var(--ink);color:#fff;border-bottom:0}
+  .final h2{color:#fff}
+  .final .lead{color:#cfcfcc}
+  .final .btn-primary{background:#fff;color:var(--ink)}
+  .final .btn-secondary{border-color:#fff;color:#fff;background:transparent}
+  .final .contact-line{margin-top:24px;font-size:15px;color:#cfcfcc}
+  .final .contact-line b{color:#fff}
+
+  footer.site{padding:48px 0;font-size:14px;color:var(--gray-4)}
+  .foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+  .foot-grid h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+  .foot-grid a{color:var(--gray-4);text-decoration:none;display:block;margin-bottom:6px}
+  .copyright{margin-top:36px;padding-top:20px;border-top:1px solid var(--gray-2);font-size:13px}
+
+  @media(max-width:860px){
+    .ltype,.ltype.rev{grid-template-columns:1fr}
+    .ltype .media,.ltype.rev .media{order:0}
+    .how,.foot-grid{grid-template-columns:1fr 1fr}
+    .intro-cta{grid-template-columns:1fr}
+    section{padding:48px 0}
+  }
+  @media(max-width:560px){
+    .how{grid-template-columns:1fr}
+    .prow{grid-template-columns:1fr;gap:6px}
+    .prow .amt{text-align:left}
+    .prow.best .amt::after{text-align:left}
+  }
+</style>
+</head>
+<body>
+<div class="proto-fab" id="protoFab">
+  <button class="proto-toggle" onclick="document.getElementById('protoFab').classList.toggle('open')" aria-label="Stránky prototypu">
+    <span class="proto-dot"></span> Prototyp
+  </button>
+  <nav class="proto-menu">
+    <div class="proto-menu-head">Stránky prototypu</div>
+    <a href="index.html">Domů</a><a href="jak-zacit.html">Jak začít</a><a href="lekce-cenik.html" class="active">Lekce a ceník</a><a href="lektorky.html">Lektorky</a><a href="studio.html">Studio</a><a href="faq.html">FAQ</a><a href="kontakt.html">Kontakt</a>
+  </nav>
+</div>
+<style>
+  .proto-fab{position:fixed;left:16px;bottom:16px;z-index:9999;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+  .proto-toggle{display:flex;align-items:center;gap:8px;background:#262625;color:#fff;border:0;border-radius:99px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .proto-toggle:hover{background:#3a3a38}
+  .proto-dot{width:8px;height:8px;border-radius:50%;background:#e6c84a;display:inline-block}
+  .proto-menu{position:absolute;left:0;bottom:calc(100% + 10px);background:#262625;border-radius:12px;padding:8px;min-width:190px;box-shadow:0 8px 28px rgba(0,0,0,.28);display:none}
+  .proto-fab.open .proto-menu{display:block}
+  .proto-menu-head{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#e6c84a;padding:8px 12px 6px}
+  .proto-menu a{display:block;color:#cfcfcc;text-decoration:none;padding:9px 12px;border-radius:7px;font-size:14px}
+  .proto-menu a:hover{background:#3a3a38;color:#fff}
+  .proto-menu a.active{background:#e6c84a;color:#1a1a1a;font-weight:700}
+</style>
+
+<div class="wf-bar">
+  <div>Wireframe Pilates Art &middot; žluté bloky jsou poznámky k obsahu, šrafované plochy nahrazují fotografie</div>
+  <button onclick="document.body.classList.toggle('clean');this.textContent=document.body.classList.contains('clean')?'Zobrazit poznámky':'Skrýt poznámky'">Skrýt poznámky</button>
+</div>
+
+<!-- HEADER -->
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="logo-link" style="text-decoration:none;color:inherit"><div class="logo">PILATES ART<span>The art of movement</span></div></a>
+    <ul>
+      <li><a href="jak-zacit.html">Jak začít</a></li>
+      <li><a class="current" href="lekce-cenik.html">Lekce a ceník</a></li>
+      <li><a href="lektorky.html">Lektorky</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <a class="btn btn-primary" href="https://pilatesart.inrs.cz/rs">Rozvrh a rezervace</a>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<div class="note"><b>Sekce 1 — Hero</b>Cíl stránky: srozumitelně ukázat typy lekcí a ceny na jednom místě (dnes jsou Lekce a Ceník zvlášť). Každý typ má cenu hned u sebe. Žádné edukační texty o tom „co je pilates".</div>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Lekce a ceník</div>
+    <h1>Vyberte si lekci, která vám sedne.</h1>
+    <p class="lead" style="margin-top:16px">Cvičíme každý všední den od brzkého rána do večera, a pokud přes týden nestíháte, zajdete i o víkendu. Na výběr máte skupinové i individuální lekce na Reformeru i na podložce. Vždy maximálně v pěti.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://pilatesart.inrs.cz/rs">Zobrazit rozvrh</a>
+      <a class="btn btn-secondary" href="jak-zacit.html">Jak začít jako nováček</a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TYPY LEKCÍ -->
+<div class="note"><b>Sekce 2 — Typy lekcí</b>Čtyři typy dle nabídky studia: Reformer skupinový, Matwork skupinový, individuální a individuální pro dva. Kapacita max. 5 osob, délka 55 min. Texty popisují, pro koho je který typ vhodný.</div>
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Typy lekcí</div>
+    <h2>Čtyři způsoby, jak u nás cvičit</h2>
+
+    <!-- Reformer skupinový -->
+    <div class="ltype">
+      <div class="media"><div class="ph">FOTO<br>skupinová lekce na Reformeru Allegro2</div></div>
+      <div>
+        <span class="tag">Skupinová lekce</span>
+        <h3>Reformer</h3>
+        <p class="body">Cvičení na unikátním stroji Reformer Allegro2 od Balanced Body. Pružiny vedou pohyb a přizpůsobí zátěž vašemu tělu, takže cvičíte účinně a přitom šetrně. Naše nejoblíbenější lekce.</p>
+        <ul class="feat">
+          <li>Pro začátečnice i pokročilé</li>
+          <li>Účinné posílení i protažení celého těla</li>
+          <li>Šetrné ke kloubům a zádům</li>
+        </ul>
+        <div class="specrow"><span><b>55 min</b></span><span>max. <b>5 osob</b></span><span>sál č. 1 Reformer</span></div>
+      </div>
+    </div>
+
+    <!-- Matwork -->
+    <div class="ltype rev">
+      <div class="media"><div class="ph">FOTO<br>lekce na podložce, sál Matwork</div></div>
+      <div>
+        <span class="tag">Skupinová lekce</span>
+        <h3>Podložka (Matwork)</h3>
+        <p class="body">Klasický pilates na podložce s využitím pomůcek, jako jsou válec, kruh nebo overball. Cviky v nízkých polohách posilují hluboký stabilizační systém a učí tělo správnému držení. Skvělý základ i doplněk k Reformeru.</p>
+        <ul class="feat">
+          <li>Práce s vlastní vahou a pomůckami</li>
+          <li>Posílení středu těla a hlubokých svalů</li>
+          <li>Vhodné jako základ i doplněk</li>
+        </ul>
+        <div class="specrow"><span><b>55 min</b></span><span>max. <b>5 osob</b></span><span>sál č. 2 Matwork</span></div>
+      </div>
+    </div>
+
+    <!-- Individuální -->
+    <div class="ltype">
+      <div class="media"><div class="ph">FOTO<br>individuální lekce, lektorka u klienta</div></div>
+      <div>
+        <span class="tag">Individuální lekce</span>
+        <h3>Individuální Reformer</h3>
+        <p class="body">Zcela osobní přístup pro ty, kdo chtějí cvičit vlastním tempem nebo řeší konkrétní cíl. Lekci přizpůsobíme přesně vašim potřebám. Individuální lekce jsou vhodné pro ženy i muže.</p>
+        <ul class="feat">
+          <li>Lekce na míru vašemu tělu i cílům</li>
+          <li>Pro ženy i muže</li>
+          <li>Ideální pro začátek i řešení specifik</li>
+        </ul>
+        <div class="specrow"><span><b>55 min</b></span><span><b>1 osoba</b></span><span>vlastní tempo</span></div>
+      </div>
+    </div>
+
+    <!-- Individuální pro 2 -->
+    <div class="ltype rev">
+      <div class="media"><div class="ph">FOTO<br>párová lekce na dvou Reformerech</div></div>
+      <div>
+        <span class="tag">Individuální lekce</span>
+        <h3>Individuální pro dvojici</h3>
+        <p class="body">Osobní vedení ve dvou. Ideální, když chcete cvičit s partnerem, kamarádkou nebo členem rodiny a zároveň si užít individuální péči lektorky. Tempo i náplň přizpůsobíme oběma.</p>
+        <ul class="feat">
+          <li>Společné cvičení s osobním vedením</li>
+          <li>Pro páry, kamarádky i rodinu</li>
+          <li>Pro ženy i muže</li>
+        </ul>
+        <div class="specrow"><span><b>55 min</b></span><span><b>2 osoby</b></span><span>individuální přístup</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3. ÚVODNÍ LEKCE HIGHLIGHT -->
+<div class="note"><b>Sekce 3 — Úvodní lekce</b>Vstupní bod pro nové klientky. Cena 990 Kč ověřena ze stránky Lekce. Odkaz vede na stránku Jak začít a na kontakt (domlouvá se osobně, ne přes INRS).</div>
+<section>
+  <div class="narrow">
+    <div class="eyebrow">Nováček u nás?</div>
+    <h2>Začněte úvodní individuální lekcí</h2>
+    <p class="body">Pro první seznámení s Reformery doporučujeme individuální úvodní lekci za zvýhodněnou cenu. Projdete si základní principy jen s lektorkou a vlastním tempem, takže do skupinových lekcí pak vstoupíte s klidem.</p>
+    <div class="intro-cta">
+      <div class="amount">990 Kč<small>55 min · jen vy a lektorka · zvýhodněná cena</small></div>
+      <div class="btn-row" style="margin-top:0">
+        <a class="btn btn-primary" href="jak-zacit.html">Jak probíhá první lekce</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. CENÍK -->
+<div class="note"><b>Sekce 4 — Ceník</b>Ceny dle ceníku platného od 1. 4. 2025. Logika kreditu: čím vyšší vklad, tím nižší cena za lekci. Skupinové mají kreditové úrovně, individuální balíčky 10 lekcí nebo jednorázový vstup.</div>
+<section class="price-section">
+  <div class="narrow">
+    <div class="eyebrow">Ceník</div>
+    <h2>Přehledný ceník</h2>
+    <p class="body">Čím vyšší kredit si předplatíte, tím méně platíte za jednu lekci. Ceny platné od 1. 4. 2025.</p>
+
+    <!-- Reformer skupinový -->
+    <div class="price-block">
+      <h3>Reformer: skupinová lekce</h3>
+      <div class="sub">55 min · max. 5 osob</div>
+      <div class="ptable">
+        <div class="prow best">
+          <div class="label"><b>S kreditem od 5 500 Kč</b><small>nejnižší cena za lekci</small></div>
+          <div class="amt">550 Kč</div>
+        </div>
+        <div class="prow">
+          <div class="label"><b>S kreditem 2 000 až 4 000 Kč</b><small>minimální vklad kreditu 2 000 Kč</small></div>
+          <div class="amt">590 Kč</div>
+        </div>
+        <div class="prow">
+          <div class="label"><b>Jednorázový vstup</b></div>
+          <div class="amt">650 Kč</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Podložka skupinový -->
+    <div class="price-block">
+      <h3>Podložka (Matwork): skupinová lekce</h3>
+      <div class="sub">55 min · max. 5 osob</div>
+      <div class="ptable">
+        <div class="prow best">
+          <div class="label"><b>S kreditem od 5 500 Kč</b><small>nejnižší cena za lekci</small></div>
+          <div class="amt">330 Kč</div>
+        </div>
+        <div class="prow">
+          <div class="label"><b>S kreditem 2 000 až 4 000 Kč</b><small>minimální vklad kreditu 2 000 Kč</small></div>
+          <div class="amt">360 Kč</div>
+        </div>
+        <div class="prow">
+          <div class="label"><b>Jednorázový vstup</b></div>
+          <div class="amt">390 Kč</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Individuální -->
+    <div class="price-block">
+      <h3>Reformer: individuální lekce</h3>
+      <div class="sub">55 min · 1 osoba · pro ženy i muže</div>
+      <div class="ptable">
+        <div class="prow best">
+          <div class="label"><b>Balíček 10 lekcí</b><small>1 400 Kč za lekci</small></div>
+          <div class="amt">14 000 Kč</div>
+        </div>
+        <div class="prow">
+          <div class="label"><b>Jednorázový vstup</b></div>
+          <div class="amt">1 600 Kč</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Individuální pro 2 -->
+    <div class="price-block">
+      <h3>Reformer: individuální lekce pro 2 osoby</h3>
+      <div class="sub">55 min · 2 osoby</div>
+      <div class="ptable">
+        <div class="prow best">
+          <div class="label"><b>Balíček 10 lekcí</b><small>2 000 Kč za lekci</small></div>
+          <div class="amt">20 000 Kč</div>
+        </div>
+        <div class="prow">
+          <div class="label"><b>Jednorázový vstup</b></div>
+          <div class="amt">2 400 Kč</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Úvodní -->
+    <div class="price-block">
+      <h3>Úvodní individuální lekce</h3>
+      <div class="sub">55 min · jen vy a lektorka · pro nové klientky</div>
+      <div class="ptable">
+        <div class="prow best">
+          <div class="label"><b>Zvýhodněná cena pro první návštěvu</b></div>
+          <div class="amt">990 Kč</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kredit-note">
+      <b>Jak funguje kredit</b>
+      S předplaceným kreditem čerpáte výhodnější ceny lekcí. Kredit dobijete na recepci studia platební kartou, nebo částku pošlete přes rezervační systém na účet Pilates Art. Kredit je nepřenosný a jeho platnost je 1 rok od uhrazení.
+    </div>
+  </div>
+</section>
+
+<!-- 5. JAK NA REZERVACI -->
+<div class="note"><b>Sekce 5 — Jak rezervovat</b>Most do INRS s vysvětlením, aby uživatelku nepřekvapil přechod na cizí doménu. Skupinové lekce přes rozvrh, úvodní a individuální přes kontakt.</div>
+<section>
+  <div class="narrow">
+    <div class="eyebrow">Jak si rezervovat</div>
+    <h2>Rezervace je jednoduchá</h2>
+    <div class="how">
+      <div class="card">
+        <div class="num">SKUPINOVÉ LEKCE</div>
+        <h3 style="font-size:16px">Vyberte z rozvrhu</h3>
+        <p>Skupinové lekce na Reformeru i podložce si rezervujete v online rozvrhu. Stačí si vybrat termín, který vám sedne.</p>
+      </div>
+      <div class="card">
+        <div class="num">PŘEDPLATNÉ</div>
+        <h3 style="font-size:16px">Dobijte si kredit</h3>
+        <p>Kredit dobijete na recepci nebo přes rezervační systém. S vyšším kreditem máte nižší cenu za lekci.</p>
+      </div>
+      <div class="card">
+        <div class="num">ÚVODNÍ A INDIVIDUÁLNÍ</div>
+        <h3 style="font-size:16px">Domluvte se s námi</h3>
+        <p>Úvodní a individuální lekce domlouváme osobně. Napište nebo zavolejte a najdeme termín, který vám vyhovuje.</p>
+      </div>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://pilatesart.inrs.cz/rs">Otevřít rozvrh a rezervovat</a>
+      <a class="btn btn-secondary" href="kontakt.html">Kontaktovat studio</a>
+    </div>
+    <p class="body" style="margin-top:16px;font-size:14px;color:var(--gray-4)">Rozvrh a rezervace probíhají v rezervačním systému INRS. Po kliknutí budete přesměrována do systému, kde se zaregistrujete a rezervujete lekce.</p>
+  </div>
+</section>
+
+<!-- 6. FINAL CTA -->
+<div class="note"><b>Sekce 6 — Závěrečné CTA</b>Směřuje nerozhodnuté k úvodní lekci, rozhodnuté do rozvrhu.</div>
+<section class="final">
+  <div class="narrow" style="text-align:center">
+    <h2>Nevíte, kde začít?</h2>
+    <p class="lead" style="margin:0 auto;max-width:520px">Začněte úvodní individuální lekcí. Po ní budete přesně vědět, jaké lekce a jaký kredit vám dávají smysl.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="jak-zacit.html">Chci úvodní lekci za 990 Kč</a>
+      <a class="btn btn-secondary" href="https://pilatesart.inrs.cz/rs">Zobrazit rozvrh</a>
+    </div>
+    <p class="contact-line"><b>+420 603 880 909</b> · info@pilatesart.cz</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>Pilates Art, s.r.o.</h4>
+        Slavětínská 1146, Klánovické Atrium<br>
+        Praha 9 Klánovice / 190 14<br>
+        IČ: 08634335<br>
+        <a href="https://goo.gl/maps/uAUBg4Z2cGKxM87x6" target="_blank">Ukázat na mapě</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="tel:+420603880909">+420 603 880 909</a>
+        <a href="mailto:info@pilatesart.cz">info@pilatesart.cz</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+      </div>
+      <div>
+        <h4>Na webu</h4>
+        <a href="jak-zacit.html">Jak začít</a>
+        <a href="lekce-cenik.html">Lekce a ceník</a>
+        <a href="lektorky.html">Lektorky</a>
+        <a href="studio.html">Studio</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div>
+        <h4>Rezervace</h4>
+        <a href="https://pilatesart.inrs.cz/rs">Rozvrh a rezervace</a>
+        <a href="#">Ochrana osobních údajů</a>
+        <a href="#">Provozní řád</a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Pilates Art · The art of movement · Design &amp; vývoj Wextra.cz</div>
+  </div>
+</footer>
+
+</body>
+</html>

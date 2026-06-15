@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilates Art — Wireframe: FAQ v1</title>
+<style>
+  :root{
+    --ink:#1a1a1a;--gray-1:#f5f5f4;--gray-2:#e7e7e5;--gray-3:#c9c9c6;--gray-4:#8a8a86;
+    --note:#fff8e1;--note-border:#e6c84a;--maxw:1080px;--narrow:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .narrow{max-width:var(--narrow);margin:0 auto;padding:0 24px}
+
+  .wf-bar{position:relative;z-index:50;background:var(--ink);color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px}
+  .wf-bar button{background:#fff;color:var(--ink);border:0;padding:6px 14px;border-radius:4px;font-size:13px;cursor:pointer;font-weight:600}
+  .note{background:var(--note);border-left:4px solid var(--note-border);padding:12px 16px;font-size:13px;color:#5c4d00;margin:0 auto;max-width:var(--maxw)}
+  .note b{display:block;margin-bottom:2px}
+  body.clean .note{display:none}
+
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-4);font-weight:600;margin-bottom:12px}
+  h1{font-size:clamp(30px,4.5vw,46px);line-height:1.14;letter-spacing:-.01em;font-weight:700}
+  h2{font-size:clamp(20px,2.6vw,26px);line-height:1.2;letter-spacing:-.01em;font-weight:700;margin-bottom:6px}
+  .lead{font-size:18px;color:#3c3c3a}
+  p.body{font-size:16px;color:#3c3c3a;margin-bottom:14px}
+  section{padding:56px 0;border-bottom:1px solid var(--gray-2)}
+
+  .btn{display:inline-block;padding:14px 26px;border-radius:6px;font-weight:700;font-size:15px;text-decoration:none;text-align:center}
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-secondary{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+  header.site{border-bottom:1px solid var(--gray-2);padding:16px 0;background:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:18px;letter-spacing:.02em}
+  .logo span{display:block;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-4)}
+  .nav ul{display:flex;list-style:none;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:500}
+  .nav a{color:var(--ink);text-decoration:none}
+  .nav .current{border-bottom:2px solid var(--ink);padding-bottom:2px}
+  .nav .btn{padding:10px 18px;font-size:14px}
+
+  .hero{padding:56px 0 40px}
+
+  /* kotvy kategorií */
+  .cat-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .cat-nav a{font-size:14px;font-weight:600;border:1px solid var(--gray-3);border-radius:99px;padding:8px 16px;color:var(--ink);text-decoration:none}
+  .cat-nav a:hover{background:var(--gray-1)}
+
+  /* FAQ blok */
+  .cat-title{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-4);margin-bottom:4px}
+  details{border-bottom:1px solid var(--gray-2);padding:20px 0}
+  summary{font-weight:700;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-weight:400;font-size:24px;color:var(--gray-4);line-height:1;flex-shrink:0}
+  details[open] summary::after{content:"−"}
+  details .ans{font-size:15px;color:#3c3c3a;margin-top:12px}
+  details .ans p{margin-bottom:10px}
+  details .ans p:last-child{margin-bottom:0}
+
+  /* final */
+  .final{background:var(--ink);color:#fff;border-bottom:0}
+  .final h2{color:#fff;font-size:28px}
+  .final .lead{color:#cfcfcc}
+  .final .btn-primary{background:#fff;color:var(--ink)}
+  .final .btn-secondary{border-color:#fff;color:#fff;background:transparent}
+  .final .contact-line{margin-top:24px;font-size:15px;color:#cfcfcc}
+  .final .contact-line b{color:#fff}
+
+  footer.site{padding:48px 0;font-size:14px;color:var(--gray-4)}
+  .foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+  .foot-grid h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+  .foot-grid a{color:var(--gray-4);text-decoration:none;display:block;margin-bottom:6px}
+  .copyright{margin-top:36px;padding-top:20px;border-top:1px solid var(--gray-2);font-size:13px}
+
+  @media(max-width:860px){
+    .foot-grid{grid-template-columns:1fr 1fr}
+    section{padding:44px 0}
+  }
+</style>
+</head>
+<body>
+<div class="proto-fab" id="protoFab">
+  <button class="proto-toggle" onclick="document.getElementById('protoFab').classList.toggle('open')" aria-label="Stránky prototypu">
+    <span class="proto-dot"></span> Prototyp
+  </button>
+  <nav class="proto-menu">
+    <div class="proto-menu-head">Stránky prototypu</div>
+    <a href="index.html">Domů</a><a href="jak-zacit.html">Jak začít</a><a href="lekce-cenik.html">Lekce a ceník</a><a href="lektorky.html">Lektorky</a><a href="studio.html">Studio</a><a href="faq.html" class="active">FAQ</a><a href="kontakt.html">Kontakt</a>
+  </nav>
+</div>
+<style>
+  .proto-fab{position:fixed;left:16px;bottom:16px;z-index:9999;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+  .proto-toggle{display:flex;align-items:center;gap:8px;background:#262625;color:#fff;border:0;border-radius:99px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .proto-toggle:hover{background:#3a3a38}
+  .proto-dot{width:8px;height:8px;border-radius:50%;background:#e6c84a;display:inline-block}
+  .proto-menu{position:absolute;left:0;bottom:calc(100% + 10px);background:#262625;border-radius:12px;padding:8px;min-width:190px;box-shadow:0 8px 28px rgba(0,0,0,.28);display:none}
+  .proto-fab.open .proto-menu{display:block}
+  .proto-menu-head{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#e6c84a;padding:8px 12px 6px}
+  .proto-menu a{display:block;color:#cfcfcc;text-decoration:none;padding:9px 12px;border-radius:7px;font-size:14px}
+  .proto-menu a:hover{background:#3a3a38;color:#fff}
+  .proto-menu a.active{background:#e6c84a;color:#1a1a1a;font-weight:700}
+</style>
+
+<div class="wf-bar">
+  <div>Wireframe Pilates Art &middot; žluté bloky jsou poznámky k obsahu, šrafované plochy nahrazují fotografie</div>
+  <button onclick="document.body.classList.toggle('clean');this.textContent=document.body.classList.contains('clean')?'Zobrazit poznámky':'Skrýt poznámky'">Skrýt poznámky</button>
+</div>
+
+<!-- HEADER -->
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="logo-link" style="text-decoration:none;color:inherit"><div class="logo">PILATES ART<span>The art of movement</span></div></a>
+    <ul>
+      <li><a href="jak-zacit.html">Jak začít</a></li>
+      <li><a href="lekce-cenik.html">Lekce a ceník</a></li>
+      <li><a href="lektorky.html">Lektorky</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a class="current" href="faq.html">FAQ</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <a class="btn btn-primary" href="https://pilatesart.inrs.cz/rs">Rozvrh a rezervace</a>
+  </div>
+</header>
+
+<!-- 1. HERO + NAVIGACE KATEGORIÍ -->
+<div class="note"><b>Sekce 1 — Hero + kategorie</b>FAQ slouží konverzi, SEO i AI vyhledávačům. Otázky rozdělené do 4 kategorií. Každá odpověď je psaná citovatelně, aby fungovala vytržená z kontextu. Celá stránka dostane schema.org FAQPage markup.</div>
+<section class="hero">
+  <div class="narrow">
+    <div class="eyebrow">Časté otázky</div>
+    <h1>Na co se nejčastěji ptáte</h1>
+    <p class="lead" style="margin-top:16px">Odpovědi na to nejdůležitější, než k nám přijdete poprvé. Nenašli jste, co jste hledali? Zavolejte nám na 603 880 909.</p>
+    <div class="cat-nav">
+      <a href="#zacatek">Než přijdete poprvé</a>
+      <a href="#lekce">Lekce a cvičení</a>
+      <a href="#cenik">Ceník a rezervace</a>
+      <a href="#studio">Studio a praktické</a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. NEŽ PŘIJDETE POPRVÉ -->
+<div class="note"><b>Kategorie 1 — Než přijdete poprvé</b>Otázky začátečnic. Cíl: odbourat nejistotu a vést k úvodní lekci. Fakta: úvodní individuální lekce 990 Kč / 55 min, domlouvá se telefonicky.</div>
+<section id="zacatek">
+  <div class="narrow">
+    <div class="cat-title">Než přijdete poprvé</div>
+    <h2>Začínám s pilates</h2>
+
+    <details open>
+      <summary>Nikdy jsem necvičila pilates. Zvládnu to?</summary>
+      <div class="ans">
+        <p>Ano. U nás každá nová klientka začíná úvodní individuální lekcí, jen vy a lektorka. Nemusíte nic umět ani znát. Lektorka vás provede základními principy vlastním tempem a přizpůsobí lekci vašemu tělu.</p>
+        <p>Cvičení na Reformeru navíc začátek usnadňuje. Pohyblivý vozík a nastavitelné pružiny vedou pohyb tak, že každý cvik zvládnete snadněji než na podložce.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Jak probíhá úvodní lekce?</summary>
+      <div class="ans">
+        <p>Úvodní individuální lekce trvá 55 minut a je celá jen pro vás. Nejdřív si popovídáme o vašem zdraví a cílech, pak vám lektorka představí Reformer a jeho principy, společně projdete základní cviky a na závěr dostanete doporučení, jak pokračovat.</p>
+        <p>Cena úvodní individuální lekce na Reformeru je 990 Kč.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Musím si úvodní lekci rezervovat předem?</summary>
+      <div class="ans">
+        <p>Ano. Úvodní lekce je individuální, proto ji domlouváme na konkrétní termín. Zavolejte na 603 880 909 nebo napište na info@pilatesart.cz a společně najdeme čas, který vám vyhovuje.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Co si mám vzít s sebou?</summary>
+      <div class="ans">
+        <p>Pohodlné oblečení, ve kterém se vám dobře hýbe, a protiskluzové ponožky. Vše ostatní, včetně Reformeru, podložek a pomůcek, máme připravené ve studiu.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Co když se mi to nebude líbit?</summary>
+      <div class="ans">
+        <p>Úvodní lekce vás k ničemu nezavazuje. Vyzkoušíte si, jaké to je, a teprve pak se rozhodnete, jestli chcete pokračovat. Žádné členství ani závazky.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 3. LEKCE A CVIČENÍ -->
+<div class="note"><b>Kategorie 2 — Lekce a cvičení</b>Fakta ověřena: max. 5 osob, 55 min, 2 sály (Reformer Allegro2 a Matwork), Reformer má 5 pružin a je šetrný ke kloubům. Pilates pro těhotné/diastáza je na webu.</div>
+<section id="lekce" style="background:var(--gray-1)">
+  <div class="narrow">
+    <div class="cat-title">Lekce a cvičení</div>
+    <h2>Jak u nás cvičíme</h2>
+
+    <details>
+      <summary>Kolik lidí cvičí na jedné lekci?</summary>
+      <div class="ans">
+        <p>Skupinové lekce na Reformeru i na podložce probíhají maximálně v pěti osobách. Díky tomu má lektorka čas na každou klientku a může opravit provedení cviků.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Jaký je rozdíl mezi Reformerem a cvičením na podložce?</summary>
+      <div class="ans">
+        <p>Reformer je pilates stroj s pohyblivým vozíkem a pružinami. Tvoří ho lavice s vozíkem v rámu, na jednom konci pět barevně značených pružin, na druhém dvě lana. Pružiny kladou svalu odpor a zároveň vedou pohyb, takže cvičíte účinně a šetrně. Cvičí se v sále č. 1.</p>
+        <p>Cvičení na podložce (Matwork) probíhá v nízkých polohách s pomůckami a posiluje hluboký stabilizační systém. Cvičí se v sále č. 2. Oba přístupy se skvěle doplňují.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Je Reformer bezpečný, když mě bolí záda?</summary>
+      <div class="ans">
+        <p>Pilates posiluje hluboké svaly, které drží páteř, a dělá to šetrně, v nízkých polohách a bez nárazů. Plynulá zátěž pružin je velmi šetrná ke kloubům a šlachám.</p>
+        <p>Cvičení na Reformeru se využívá i jako kompenzace sedavého zaměstnání nebo jako následná rehabilitace. Na úvodní lekci nám řekněte, co vás trápí, a lekci tomu přizpůsobíme.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Můžu cvičit po porodu nebo s diastázou?</summary>
+      <div class="ans">
+        <p>Ano. Máme cviky upravené pro období po porodu i pro práci s diastázou. V těhotenství cvičení konzultujeme individuálně podle vašeho stavu a doporučení lékaře.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Jsem na pilates moc stará?</summary>
+      <div class="ans">
+        <p>Nejste. Cvičit s pilates můžete začít v každém věku a téměř v jakékoli kondici. Vždy se najde modifikace cviku, kterou zvládnete. Pilates je navíc ke kloubům šetrný a pomáhá udržet sílu, pohyblivost i správné držení těla.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Chodí k vám i muži?</summary>
+      <div class="ans">
+        <p>Ano. Individuální lekce jsou otevřené ženám i mužům a lze je přizpůsobit potřebám každého jedince. Skupinové lekce jsou převážně ženské.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Jak často mám chodit, abych viděla výsledky?</summary>
+      <div class="ans">
+        <p>Většina klientek cítí úlevu a lepší držení těla už po několika lekcích. Viditelnější změny síly a postavy přicházejí při pravidelném cvičení, zhruba jednou až dvakrát týdně, během několika týdnů.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 4. CENÍK A REZERVACE -->
+<div class="note"><b>Kategorie 3 — Ceník a rezervace</b>Ceny dle ceníku platného od 1. 4. 2025. Logika kreditu, rezervace skupinových lekcí přes rozvrh, úvodní a individuální telefonicky.</div>
+<section id="cenik">
+  <div class="narrow">
+    <div class="cat-title">Ceník a rezervace</div>
+    <h2>Ceny, kredit a rezervace</h2>
+
+    <details>
+      <summary>Kolik stojí lekce?</summary>
+      <div class="ans">
+        <p>Skupinová lekce na Reformeru stojí 550 až 650 Kč podle výše předplaceného kreditu. Skupinová lekce na podložce stojí 330 až 390 Kč. Úvodní individuální lekce na Reformeru stojí 990 Kč. Všechny lekce trvají 55 minut. Kompletní přehled najdete na stránce Lekce a ceník.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Jak funguje kredit?</summary>
+      <div class="ans">
+        <p>S předplaceným kreditem čerpáte výhodnější ceny lekcí. Čím vyšší kredit si dobijete, tím méně platíte za jednu lekci. U Reformeru je například cena 550 Kč za lekci při kreditu od 5 500 Kč, 590 Kč při kreditu 2 000 až 4 000 Kč a 650 Kč za jednorázový vstup.</p>
+        <p>Kredit je nepřenosný a jeho platnost je 1 rok od uhrazení.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Jak si dobiju kredit?</summary>
+      <div class="ans">
+        <p>Kredit dobijete na recepci studia platební kartou, nebo částku pošlete přes rezervační systém na účet Pilates Art.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Jak si rezervuju skupinovou lekci?</summary>
+      <div class="ans">
+        <p>Skupinové lekce na Reformeru i podložce si rezervujete v online rozvrhu. Rezervace probíhá v rezervačním systému INRS, do kterého se z webu prokliknete, zaregistrujete se a vyberete si termín.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Jak si domluvím úvodní nebo individuální lekci?</summary>
+      <div class="ans">
+        <p>Úvodní a individuální lekce domlouváme osobně. Zavolejte na 603 880 909 nebo napište na info@pilatesart.cz a najdeme termín, který vám sedne.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 5. STUDIO A PRAKTICKÉ -->
+<div class="note"><b>Kategorie 4 — Studio a praktické</b>Adresa, otevírací časy a vybavení studia. Údaje o dostupnosti drženy obecně, k upřesnění s klientkou.</div>
+<section id="studio" style="background:var(--gray-1)">
+  <div class="narrow">
+    <div class="cat-title">Studio a praktické</div>
+    <h2>Kde a kdy nás najdete</h2>
+
+    <details>
+      <summary>Kde studio najdu?</summary>
+      <div class="ans">
+        <p>Pilates Art najdete v Klánovickém Atriu na adrese Slavětínská 1146, Praha 9 Klánovice, 190 14. Studio je přímo na hlavní ulici v srdci Klánovic, dostupné vlakem ze zastávky Praha-Klánovice.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Kdy se u vás cvičí?</summary>
+      <div class="ans">
+        <p>Cvičí se každý všední den od brzkého rána do večera. Pokud přes týden nestíháte, na lekci můžete zajít i o víkendu. Aktuální termíny najdete v online rozvrhu.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Na čem se u vás cvičí?</summary>
+      <div class="ans">
+        <p>Studio má dva sály. V sále č. 1 se cvičí na stroji Reformer Allegro2 od značky Balanced Body, v sále č. 2 na podložce s plnou škálou pomůcek. Studio je zaměřené výlučně na metodu pilates.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Kdo u vás učí?</summary>
+      <div class="ans">
+        <p>Lekce vede tým lektorek s dlouholetou praxí, v čele se zakladatelkami Petrou Meissnerovou a Kateřinou Štádlerovou, které studio založily a dodnes samy učí. Více se o nich dočtete na stránce Lektorky.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 6. FINAL CTA -->
+<div class="note"><b>Sekce 6 — Závěrečné CTA</b>Po zodpovězení otázek vést k akci.</div>
+<section class="final">
+  <div class="narrow" style="text-align:center">
+    <h2>Nenašli jste odpověď?</h2>
+    <p class="lead" style="margin:0 auto;max-width:520px">Rády vám se vším poradíme. Zavolejte nebo napište a domluvíme termín vaší úvodní lekce.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="jak-zacit.html">Chci úvodní lekci za 990 Kč</a>
+      <a class="btn btn-secondary" href="tel:+420603880909">Zavolat: 603 880 909</a>
+    </div>
+    <p class="contact-line"><b>+420 603 880 909</b> · info@pilatesart.cz</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>Pilates Art, s.r.o.</h4>
+        Slavětínská 1146, Klánovické Atrium<br>
+        Praha 9 Klánovice / 190 14<br>
+        IČ: 08634335<br>
+        <a href="https://goo.gl/maps/uAUBg4Z2cGKxM87x6" target="_blank">Ukázat na mapě</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="tel:+420603880909">+420 603 880 909</a>
+        <a href="mailto:info@pilatesart.cz">info@pilatesart.cz</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+      </div>
+      <div>
+        <h4>Na webu</h4>
+        <a href="jak-zacit.html">Jak začít</a>
+        <a href="lekce-cenik.html">Lekce a ceník</a>
+        <a href="lektorky.html">Lektorky</a>
+        <a href="studio.html">Studio</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div>
+        <h4>Rezervace</h4>
+        <a href="https://pilatesart.inrs.cz/rs">Rozvrh a rezervace</a>
+        <a href="#">Ochrana osobních údajů</a>
+        <a href="#">Provozní řád</a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Pilates Art · The art of movement · Design &amp; vývoj Wextra.cz</div>
+  </div>
+</footer>
+
+</body>
+</html>

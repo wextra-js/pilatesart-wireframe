@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilates Art — Wireframe: Lektorky v1</title>
+<style>
+  :root{
+    --ink:#1a1a1a;--gray-1:#f5f5f4;--gray-2:#e7e7e5;--gray-3:#c9c9c6;--gray-4:#8a8a86;
+    --note:#fff8e1;--note-border:#e6c84a;--maxw:1080px;--narrow:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .narrow{max-width:var(--narrow);margin:0 auto;padding:0 24px}
+
+  .wf-bar{position:relative;z-index:50;background:var(--ink);color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px}
+  .wf-bar button{background:#fff;color:var(--ink);border:0;padding:6px 14px;border-radius:4px;font-size:13px;cursor:pointer;font-weight:600}
+  .note{background:var(--note);border-left:4px solid var(--note-border);padding:12px 16px;font-size:13px;color:#5c4d00;margin:0 auto;max-width:var(--maxw)}
+  .note b{display:block;margin-bottom:2px}
+  body.clean .note{display:none}
+
+  .ph{background:repeating-linear-gradient(45deg,var(--gray-1),var(--gray-1) 12px,var(--gray-2) 12px,var(--gray-2) 24px);border:1px dashed var(--gray-3);display:flex;align-items:center;justify-content:center;color:var(--gray-4);font-size:13px;text-align:center;padding:12px}
+
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-4);font-weight:600;margin-bottom:12px}
+  h1{font-size:clamp(30px,4.5vw,46px);line-height:1.14;letter-spacing:-.01em;font-weight:700}
+  h2{font-size:clamp(23px,3vw,32px);line-height:1.2;letter-spacing:-.01em;font-weight:700;margin-bottom:14px}
+  h3{font-size:21px;font-weight:700;margin-bottom:4px}
+  .lead{font-size:18px;color:#3c3c3a}
+  p.body{font-size:16px;color:#3c3c3a;margin-bottom:14px}
+  section{padding:64px 0;border-bottom:1px solid var(--gray-2)}
+
+  .btn{display:inline-block;padding:14px 26px;border-radius:6px;font-weight:700;font-size:15px;text-decoration:none;text-align:center}
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-secondary{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+  header.site{border-bottom:1px solid var(--gray-2);padding:16px 0;background:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:18px;letter-spacing:.02em}
+  .logo span{display:block;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-4)}
+  .nav ul{display:flex;list-style:none;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:500}
+  .nav a{color:var(--ink);text-decoration:none}
+  .nav .current{border-bottom:2px solid var(--ink);padding-bottom:2px}
+  .nav .btn{padding:10px 18px;font-size:14px}
+
+  /* hero */
+  .hero{padding:60px 0 48px}
+  .hero .lead{max-width:620px}
+
+  /* founders */
+  .founder{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;padding:40px 0;border-top:1px solid var(--gray-2)}
+  .founder:first-of-type{border-top:0;padding-top:8px}
+  .founder.rev .media{order:2}
+  .founder .ph{aspect-ratio:3/4;border-radius:8px}
+  .role-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:5px 12px;border-radius:99px;margin-bottom:12px}
+  .quote{font-size:18px;font-style:italic;color:var(--ink);border-left:3px solid var(--ink);padding-left:16px;margin:16px 0}
+  .spec{margin-top:14px;font-size:14px;color:var(--gray-4)}
+  .spec b{color:var(--ink)}
+  .spec-d{margin-top:18px;border:1px solid var(--gray-2);border-radius:8px;padding:16px 20px;background:var(--gray-1)}
+  .spec-d summary{font-weight:700;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--ink)}
+  .spec-d summary::-webkit-details-marker{display:none}
+  .spec-d summary::after{content:"+";font-weight:400;font-size:20px;color:var(--gray-4)}
+  .spec-d[open] summary::after{content:"−"}
+  .spec-list{margin-top:16px}
+  .spec-year{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--gray-4);margin:14px 0 6px;text-transform:uppercase}
+  .spec-year:first-child{margin-top:0}
+  .spec-list ul{list-style:none;margin:0}
+  .spec-list li{font-size:13px;color:#3c3c3a;padding:4px 0 4px 16px;position:relative;line-height:1.5}
+  .spec-list li::before{content:"·";position:absolute;left:4px;font-weight:800;color:var(--gray-4)}
+
+  /* team grid */
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px}
+  .person .ph{aspect-ratio:3/4;border-radius:8px;margin-bottom:14px}
+  .person h3{font-size:18px;margin-bottom:2px}
+  .person .role{font-size:13px;color:var(--gray-4);margin-bottom:10px}
+  .person p{font-size:14px;color:#3c3c3a;margin-bottom:10px}
+  .person .quote-sm{font-size:14px;font-style:italic;color:var(--ink)}
+
+  /* final */
+  .final{background:var(--ink);color:#fff;border-bottom:0}
+  .final h2{color:#fff}
+  .final .lead{color:#cfcfcc}
+  .final .btn-primary{background:#fff;color:var(--ink)}
+  .final .btn-secondary{border-color:#fff;color:#fff;background:transparent}
+  .final .contact-line{margin-top:24px;font-size:15px;color:#cfcfcc}
+  .final .contact-line b{color:#fff}
+
+  footer.site{padding:48px 0;font-size:14px;color:var(--gray-4)}
+  .foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+  .foot-grid h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+  .foot-grid a{color:var(--gray-4);text-decoration:none;display:block;margin-bottom:6px}
+  .copyright{margin-top:36px;padding-top:20px;border-top:1px solid var(--gray-2);font-size:13px}
+
+  @media(max-width:860px){
+    .founder,.founder.rev{grid-template-columns:1fr}
+    .founder .media,.founder.rev .media{order:0}
+    .founder .ph{max-width:320px}
+    .team{grid-template-columns:repeat(2,1fr)}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    section{padding:48px 0}
+  }
+  @media(max-width:560px){
+    .team{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="proto-fab" id="protoFab">
+  <button class="proto-toggle" onclick="document.getElementById('protoFab').classList.toggle('open')" aria-label="Stránky prototypu">
+    <span class="proto-dot"></span> Prototyp
+  </button>
+  <nav class="proto-menu">
+    <div class="proto-menu-head">Stránky prototypu</div>
+    <a href="index.html">Domů</a><a href="jak-zacit.html">Jak začít</a><a href="lekce-cenik.html">Lekce a ceník</a><a href="lektorky.html" class="active">Lektorky</a><a href="studio.html">Studio</a><a href="faq.html">FAQ</a><a href="kontakt.html">Kontakt</a>
+  </nav>
+</div>
+<style>
+  .proto-fab{position:fixed;left:16px;bottom:16px;z-index:9999;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+  .proto-toggle{display:flex;align-items:center;gap:8px;background:#262625;color:#fff;border:0;border-radius:99px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .proto-toggle:hover{background:#3a3a38}
+  .proto-dot{width:8px;height:8px;border-radius:50%;background:#e6c84a;display:inline-block}
+  .proto-menu{position:absolute;left:0;bottom:calc(100% + 10px);background:#262625;border-radius:12px;padding:8px;min-width:190px;box-shadow:0 8px 28px rgba(0,0,0,.28);display:none}
+  .proto-fab.open .proto-menu{display:block}
+  .proto-menu-head{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#e6c84a;padding:8px 12px 6px}
+  .proto-menu a{display:block;color:#cfcfcc;text-decoration:none;padding:9px 12px;border-radius:7px;font-size:14px}
+  .proto-menu a:hover{background:#3a3a38;color:#fff}
+  .proto-menu a.active{background:#e6c84a;color:#1a1a1a;font-weight:700}
+</style>
+
+<div class="wf-bar">
+  <div>Wireframe Pilates Art &middot; žluté bloky jsou poznámky k obsahu, šrafované plochy nahrazují fotografie</div>
+  <button onclick="document.body.classList.toggle('clean');this.textContent=document.body.classList.contains('clean')?'Zobrazit poznámky':'Skrýt poznámky'">Skrýt poznámky</button>
+</div>
+
+<!-- HEADER -->
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="logo-link" style="text-decoration:none;color:inherit"><div class="logo">PILATES ART<span>The art of movement</span></div></a>
+    <ul>
+      <li><a href="jak-zacit.html">Jak začít</a></li>
+      <li><a href="lekce-cenik.html">Lekce a ceník</a></li>
+      <li><a class="current" href="lektorky.html">Lektorky</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <a class="btn btn-primary" href="https://pilatesart.inrs.cz/rs">Rozvrh a rezervace</a>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<div class="note"><b>Sekce 1 — Hero</b>Cíl: lidé důvěřují lidem. Stránka má ukázat lektorky profesionálně i lidsky. Úvodní text vychází z reálného claimu webu „the art of movement" a z meta popisu stránky lektoři.</div>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Náš tým</div>
+    <h1>Lektorky, které pilates žijí.</h1>
+    <p class="lead" style="margin-top:16px">Příjemnou energii a kvalitní pohyb vám dopřeje náš tým lektorek s dlouholetou praxí. Skoro každá z nás se k pilates dostala přes vlastní tělo: bolavá záda, návrat po dětech, hledání pohybu, který dává smysl. Proto rozumíme tomu, s čím přicházíte.</p>
+  </div>
+</section>
+
+<!-- 2. ZAKLADATELKY -->
+<div class="note"><b>Sekce 2 — Zakladatelky</b>Petra a Kateřina jako tváře studia s větším prostorem. Petra má rozklikávací nabídku kompletních specializací. Citáty a fakta z bio na webu.</div>
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Zakladatelky studia</div>
+    <h2>Petra a Kateřina</h2>
+    <p class="body" style="max-width:620px">Pilates Art založily proto, aby dělaly to, co je baví: studio zaměřené výlučně na metodu pilates, s individuální a kvalitní péčí v malých skupinách. A dodnes obě samy učí.</p>
+
+    <!-- Petra -->
+    <div class="founder">
+      <div class="media"><div class="ph">PORTRÉT<br>Petra Meissnerová</div></div>
+      <div>
+        <span class="role-tag">Spolumajitelka a lektorka</span>
+        <h3>Petra Meissnerová</h3>
+        <p class="body">Pilates objevila v roce 2009 po narození druhé dcery, kdy už bolesti zad a krční páteře nebyly k vydržení. Od první lekce cítila úlevu a začala cvičit pravidelně. Pak se přihlásila na Pilates Academy a od té doby prošla snad všemi směry vzdělání v pilates.</p>
+        <p class="body">Baví ji učit se, objevovat a předávat zkušenosti dál. Za roky praxe absolvovala desítky kurzů od práce s diastázou a dýcháním přes Reformer až po práci s pomůckami.</p>
+        <p class="quote">„Dělá mi radost, když vidím na svých hodinách, jak se mění vaše těla a s jakou chutí na sobě pracujete."</p>
+        <details class="spec-d">
+          <summary>Zobrazit kompletní vzdělání a specializace</summary>
+          <div class="spec-list">
+            <p class="spec-year">2012–2013</p>
+            <ul>
+              <li>Pilates Academy, Renata Sabongui, Ron Fletcher Towelwork</li>
+              <li>Mezinárodní workshop s Benem Larbim z Paříže</li>
+            </ul>
+            <p class="spec-year">2015</p>
+            <ul>
+              <li>Kyfóza, Elixír Akademie, Věra Havlová</li>
+              <li>Velké a malé míče (fitball, overball, sball), IQ pohyb, Daniel Müller</li>
+              <li>Bosu balance trainer, Core, IQ pohyb, Zuzana Kleinová</li>
+              <li>Držení těla, axiální systém (páteř, pánev, hlava), IQ pohyb, Daniel Müller</li>
+              <li>Pěnový válec, IQ pohyb, Martina Fallerová</li>
+              <li>Držení těla, chodidla, foot work, IQ pohyb, Daniel Müller</li>
+              <li>Form roller, Elixír Akademie, Věra Havlová</li>
+            </ul>
+            <p class="spec-year">2016</p>
+            <ul>
+              <li>Reformer Basic, Pilates Academy, PhDr. Renata Sabongui</li>
+              <li>Reformer 1, 2, 3, My Pilates, Gabriela Němečková</li>
+            </ul>
+            <p class="spec-year">2017</p>
+            <ul>
+              <li>Fyziopilates, hluboký stabilizační systém, My Pilates, Gabriela Jakešová</li>
+              <li>Anatomie v praxi, My Pilates, Hana Vašíčková</li>
+              <li>Jak vyzrát na diastázu, My Pilates, Petra Sojková</li>
+              <li>Fyziopilates, dýchání, My Pilates, Gabriela Jakešová</li>
+              <li>Fyziopilates, problémy dolních končetin, My Pilates, Gabriela Jakešová</li>
+              <li>Fyziopilates, problémy ramenního pletence a horních končetin, My Pilates</li>
+              <li>Magic circles, IQ pohyb, Martina Fallerová</li>
+              <li>Form roller, My Pilates, Monika Kupková</li>
+            </ul>
+            <p class="spec-year">2018–2019</p>
+            <ul>
+              <li>Arc Barell, Apparatus (Trapeze Table, Cadillac, Chair, Barrels), My Pilates</li>
+              <li>Bodhi systém, My Pilates, G. Němečková</li>
+              <li>Magic circle, My Pilates, Jana Šimková</li>
+              <li>Fyziopilates, problémy krční páteře, My Pilates, G. Jakešová</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Kateřina -->
+    <div class="founder rev">
+      <div class="media"><div class="ph">PORTRÉT<br>Kateřina Štádlerová</div></div>
+      <div>
+        <span class="role-tag">Spolumajitelka a lektorka</span>
+        <h3>Kateřina Štádlerová</h3>
+        <p class="body">Pilates se aktivně věnuje od roku 2004, jako lektorka posledních osm let. Kurz v Pilates Academy u Renaty Sabongui si původně dělala sama pro sebe, mimo jiné kvůli práci s tělem při osteoporóze, kterou má v rodině. Z praxe se postupně stala srdeční záležitost.</p>
+        <p class="body">Při lekcích usiluje o přesah do reálného života a vede klientky k tomu, aby přemýšlely celostně. Ráda posiluje a protahuje tělo přirozenou cestou, bez násilí.</p>
+        <p class="quote">„Pilates pro mě není závod, ale naopak uvolnění a koncentrace."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. TÝM -->
+<div class="note"><b>Sekce 3 — Tým lektorek</b>Zbylých 6 lektorek v pořadí dle webu: Andrea Hoffmanová, Dana Dudková, Petra Vanclová, Zdenka Josefi, Alice Trávníčková, Michaela Miková. Každá má krátký medailonek + autentický citát z jejího bio. Vše ověřeno.</div>
+<section style="background:var(--gray-1)">
+  <div class="wrap">
+    <div class="eyebrow">Náš tým</div>
+    <h2>Lektorky Pilates Art</h2>
+    <div class="team">
+
+      <!-- Andrea -->
+      <div class="person">
+        <div class="ph">PORTRÉT<br>Andrea Hoffmanová</div>
+        <h3>Andrea Hoffmanová</h3>
+        <div class="role">Lektorka pilates</div>
+        <p>Pilates objevila v roce 2014, když hledala pohyb, který by jí ulevil od bolavých zad po mateřské. Lektorskou zkoušku složila v roce 2019 ve studiu MyPilates u Gábiny Němečkové.</p>
+        <p class="quote-sm">„Začít můžete v každém věku a téměř v jakékoliv fyzické kondici."</p>
+      </div>
+
+      <!-- Dana -->
+      <div class="person">
+        <div class="ph">PORTRÉT<br>Dana Dudková</div>
+        <h3>Dana Dudková</h3>
+        <div class="role">Lektorka pilates</div>
+        <p>K pilates ji přivedla bolavá záda po narození dětí. Sama se vrátila do formy a chuť pomáhat ostatním na sebe nenechala dlouho čekat. V hodinách jí vyhovují malé skupiny a intenzivní práce s klientem.</p>
+        <p class="quote-sm">„Po narození dcery mě Pilates doslova postavil zpět na nohy."</p>
+      </div>
+
+      <!-- Petra Vanclová -->
+      <div class="person">
+        <div class="ph">PORTRÉT<br>Petra Vanclová</div>
+        <h3>Petra Vanclová</h3>
+        <div class="role">Lektorka pilates</div>
+        <p>Sport je součástí jejího života a pilates jí umožňuje vnímat pohyb jako souhru celého těla. Kurzy Matwork a Reformer absolvovala v myPilates Academy v rámci programu Balanced Body. Ráda tráví čas na horách.</p>
+        <p class="quote-sm">„Zdánlivě snadné cviky vyžadují koncentraci a preciznost."</p>
+      </div>
+
+      <!-- Zdenka -->
+      <div class="person">
+        <div class="ph">PORTRÉT<br>Zdenka Josefi</div>
+        <h3>Zdenka Josefi</h3>
+        <div class="role">Lektorka pilates</div>
+        <p>Vystudovala katedru Nonverbálního divadla na HAMU. Pilates a fyzické divadlo se staly její profesí a navzájem se doplňují. Vede lekce na podložce i na strojích. Certifikace Reformer má od My Pilates Academy a Balanced Body University.</p>
+        <p class="quote-sm">„Tělo vnímám jako náš nástroj, o který je třeba pečovat."</p>
+      </div>
+
+      <!-- Alice -->
+      <div class="person">
+        <div class="ph">PORTRÉT<br>Alice Trávníčková</div>
+        <h3>Alice Trávníčková</h3>
+        <div class="role">Lektorka pilates</div>
+        <p>Pilates objevila v roce 2020 právě tady ve studiu Pilates Art, když po pauze hledala pohyb pro znovunalezení rovnováhy. Dříve závodně hrála volejbal. Dnes ji baví objevovat hloubku pilates a jeho vliv na tělo i mysl.</p>
+        <p class="quote-sm">„Pilates je pro mě způsob, jak zpomalit a najít radost z pohybu."</p>
+      </div>
+
+      <!-- Michaela -->
+      <div class="person">
+        <div class="ph">PORTRÉT<br>Michaela Miková</div>
+        <h3>Michaela Miková</h3>
+        <div class="role">Lektorka pilates</div>
+        <p>Pilates si zvolila jako protiváhu k uspěchanému světu. Klade důraz na vědomé zapojení těla a pomalé, precizní provedení každého pohybu. Během lekce se podle ní člověk ztiší a dopřeje si soulad mysli a těla.</p>
+        <p class="quote-sm">„Nejde o počet opakování, ale o návrat k sobě samé."</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 4. FINAL CTA -->
+<div class="note"><b>Sekce 4 — Závěrečné CTA</b>Přirozený přechod od důvěry k akci. Po seznámení s lektorkami nabídnout první krok.</div>
+<section class="final">
+  <div class="narrow" style="text-align:center">
+    <h2>Poznejte nás osobně</h2>
+    <p class="lead" style="margin:0 auto;max-width:520px">Nejlépe nás poznáte na lekci. Začněte úvodní individuální lekcí a vyberte si lektorku, u které vám bude dobře.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="jak-zacit.html">Chci úvodní lekci za 990 Kč</a>
+      <a class="btn btn-secondary" href="https://pilatesart.inrs.cz/rs">Zobrazit rozvrh</a>
+    </div>
+    <p class="contact-line"><b>+420 603 880 909</b> · info@pilatesart.cz</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>Pilates Art, s.r.o.</h4>
+        Slavětínská 1146, Klánovické Atrium<br>
+        Praha 9 Klánovice / 190 14<br>
+        IČ: 08634335<br>
+        <a href="https://goo.gl/maps/uAUBg4Z2cGKxM87x6" target="_blank">Ukázat na mapě</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="tel:+420603880909">+420 603 880 909</a>
+        <a href="mailto:info@pilatesart.cz">info@pilatesart.cz</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+      </div>
+      <div>
+        <h4>Na webu</h4>
+        <a href="jak-zacit.html">Jak začít</a>
+        <a href="lekce-cenik.html">Lekce a ceník</a>
+        <a href="lektorky.html">Lektorky</a>
+        <a href="studio.html">Studio</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div>
+        <h4>Rezervace</h4>
+        <a href="https://pilatesart.inrs.cz/rs">Rozvrh a rezervace</a>
+        <a href="#">Ochrana osobních údajů</a>
+        <a href="#">Provozní řád</a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Pilates Art · The art of movement · Design &amp; vývoj Wextra.cz</div>
+  </div>
+</footer>
+
+</body>
+</html>

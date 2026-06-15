@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilates Art — Wireframe: Kontakt v1</title>
+<style>
+  :root{
+    --ink:#1a1a1a;--gray-1:#f5f5f4;--gray-2:#e7e7e5;--gray-3:#c9c9c6;--gray-4:#8a8a86;
+    --note:#fff8e1;--note-border:#e6c84a;--maxw:1080px;--narrow:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .narrow{max-width:var(--narrow);margin:0 auto;padding:0 24px}
+
+  .wf-bar{position:relative;z-index:50;background:var(--ink);color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px}
+  .wf-bar button{background:#fff;color:var(--ink);border:0;padding:6px 14px;border-radius:4px;font-size:13px;cursor:pointer;font-weight:600}
+  .note{background:var(--note);border-left:4px solid var(--note-border);padding:12px 16px;font-size:13px;color:#5c4d00;margin:0 auto;max-width:var(--maxw)}
+  .note b{display:block;margin-bottom:2px}
+  body.clean .note{display:none}
+
+  .ph{background:repeating-linear-gradient(45deg,var(--gray-1),var(--gray-1) 12px,var(--gray-2) 12px,var(--gray-2) 24px);border:1px dashed var(--gray-3);display:flex;align-items:center;justify-content:center;color:var(--gray-4);font-size:13px;text-align:center;padding:12px}
+
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-4);font-weight:600;margin-bottom:12px}
+  h1{font-size:clamp(30px,4.5vw,46px);line-height:1.14;letter-spacing:-.01em;font-weight:700}
+  h2{font-size:clamp(22px,3vw,30px);line-height:1.2;letter-spacing:-.01em;font-weight:700;margin-bottom:14px}
+  h3{font-size:16px;font-weight:700;margin-bottom:8px}
+  .lead{font-size:18px;color:#3c3c3a}
+  p.body{font-size:16px;color:#3c3c3a;margin-bottom:14px}
+  section{padding:56px 0;border-bottom:1px solid var(--gray-2)}
+
+  .btn{display:inline-block;padding:14px 26px;border-radius:6px;font-weight:700;font-size:15px;text-decoration:none;text-align:center;border:0;cursor:pointer}
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-secondary{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+  header.site{border-bottom:1px solid var(--gray-2);padding:16px 0;background:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:18px;letter-spacing:.02em}
+  .logo span{display:block;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-4)}
+  .nav ul{display:flex;list-style:none;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:500}
+  .nav a{color:var(--ink);text-decoration:none}
+  .nav .current{border-bottom:2px solid var(--ink);padding-bottom:2px}
+  .nav .btn{padding:10px 18px;font-size:14px}
+
+  /* hero */
+  .hero{padding:56px 0 8px}
+
+  /* kontakt grid */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+
+  /* kontaktni karty */
+  .cards{display:grid;gap:16px}
+  .card{border:1px solid var(--gray-2);border-radius:10px;padding:24px}
+  .card .eyebrow{margin-bottom:8px}
+  .card .big{font-size:22px;font-weight:800;letter-spacing:-.01em}
+  .card a{color:var(--ink);text-decoration:none}
+  .card .big a:hover{text-decoration:underline}
+  .card p{font-size:15px;color:#3c3c3a;line-height:1.7}
+  .card .muted{font-size:13px;color:var(--gray-4);margin-top:6px}
+
+  /* formular */
+  .form{border:1px solid var(--gray-2);border-radius:12px;padding:28px;background:#fff}
+  .form h2{font-size:22px;margin-bottom:6px}
+  .form .desc{font-size:15px;color:#3c3c3a;margin-bottom:20px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .field input,.field textarea{width:100%;border:1px solid var(--gray-3);border-radius:8px;padding:12px 14px;font-size:15px;font-family:inherit;background:var(--gray-1)}
+  .field textarea{min-height:120px;resize:vertical}
+  .gdpr{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#3c3c3a;margin-bottom:18px}
+  .gdpr input{margin-top:3px}
+
+  /* mapa */
+  .map .ph{min-height:420px;border-radius:12px}
+  .map-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:18px;font-size:14px;color:#3c3c3a}
+  .map-meta b{color:var(--ink)}
+
+  /* final */
+  .final{background:var(--ink);color:#fff;border-bottom:0}
+  .final h2{color:#fff}
+  .final .lead{color:#cfcfcc}
+  .final .btn-primary{background:#fff;color:var(--ink)}
+  .final .btn-secondary{border-color:#fff;color:#fff;background:transparent}
+
+  footer.site{padding:48px 0;font-size:14px;color:var(--gray-4)}
+  .foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+  .foot-grid h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+  .foot-grid a{color:var(--gray-4);text-decoration:none;display:block;margin-bottom:6px}
+  .copyright{margin-top:36px;padding-top:20px;border-top:1px solid var(--gray-2);font-size:13px}
+
+  @media(max-width:860px){
+    .contact-grid,.foot-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    section{padding:44px 0}
+  }
+</style>
+</head>
+<body>
+<div class="proto-fab" id="protoFab">
+  <button class="proto-toggle" onclick="document.getElementById('protoFab').classList.toggle('open')" aria-label="Stránky prototypu">
+    <span class="proto-dot"></span> Prototyp
+  </button>
+  <nav class="proto-menu">
+    <div class="proto-menu-head">Stránky prototypu</div>
+    <a href="index.html">Domů</a><a href="jak-zacit.html">Jak začít</a><a href="lekce-cenik.html">Lekce a ceník</a><a href="lektorky.html">Lektorky</a><a href="studio.html">Studio</a><a href="faq.html">FAQ</a><a href="kontakt.html" class="active">Kontakt</a>
+  </nav>
+</div>
+<style>
+  .proto-fab{position:fixed;left:16px;bottom:16px;z-index:9999;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+  .proto-toggle{display:flex;align-items:center;gap:8px;background:#262625;color:#fff;border:0;border-radius:99px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .proto-toggle:hover{background:#3a3a38}
+  .proto-dot{width:8px;height:8px;border-radius:50%;background:#e6c84a;display:inline-block}
+  .proto-menu{position:absolute;left:0;bottom:calc(100% + 10px);background:#262625;border-radius:12px;padding:8px;min-width:190px;box-shadow:0 8px 28px rgba(0,0,0,.28);display:none}
+  .proto-fab.open .proto-menu{display:block}
+  .proto-menu-head{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#e6c84a;padding:8px 12px 6px}
+  .proto-menu a{display:block;color:#cfcfcc;text-decoration:none;padding:9px 12px;border-radius:7px;font-size:14px}
+  .proto-menu a:hover{background:#3a3a38;color:#fff}
+  .proto-menu a.active{background:#e6c84a;color:#1a1a1a;font-weight:700}
+</style>
+
+<div class="wf-bar">
+  <div>Wireframe Pilates Art &middot; žluté bloky jsou poznámky k obsahu, šrafované plochy nahrazují fotografie</div>
+  <button onclick="document.body.classList.toggle('clean');this.textContent=document.body.classList.contains('clean')?'Zobrazit poznámky':'Skrýt poznámky'">Skrýt poznámky</button>
+</div>
+
+<!-- HEADER -->
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="logo-link" style="text-decoration:none;color:inherit"><div class="logo">PILATES ART<span>The art of movement</span></div></a>
+    <ul>
+      <li><a href="jak-zacit.html">Jak začít</a></li>
+      <li><a href="lekce-cenik.html">Lekce a ceník</a></li>
+      <li><a href="lektorky.html">Lektorky</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a class="current" href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <a class="btn btn-primary" href="https://pilatesart.inrs.cz/rs">Rozvrh a rezervace</a>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<div class="note"><b>Sekce 1 — Hero</b>Krátký, vstřícný úvod. Hned naznačí dvě cesty: domluvit úvodní lekci nebo se na cokoli zeptat. Tonalita „Těšíme se na vás" z původního webu zachována.</div>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Kontakt</div>
+    <h1>Těšíme se na vás.</h1>
+    <p class="lead" style="margin-top:16px;max-width:600px">Chcete si domluvit úvodní lekci nebo se na něco zeptat? Napište nám nebo zavolejte. Rády vám se vším poradíme.</p>
+  </div>
+</section>
+
+<!-- 2. KONTAKT + FORMULÁŘ -->
+<div class="note"><b>Sekce 2 — Kontaktní údaje + formulář</b>Všechny údaje ověřeny: telefon, e-mail info@pilatesart.cz, adresa, IČ, bankovní spojení. Úvodní a individuální lekce se domlouvají přes telefon/formulář (ne INRS). Formulář s GDPR souhlasem (na webu povinný).</div>
+<section>
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <!-- levý sloupec: kontakty -->
+      <div>
+        <div class="cards">
+          <div class="card">
+            <div class="eyebrow">Rezervace a obecné informace</div>
+            <div class="big"><a href="tel:+420603880909">+420 603 880 909</a></div>
+            <div class="big" style="font-size:18px;margin-top:6px"><a href="mailto:info@pilatesart.cz">info@pilatesart.cz</a></div>
+            <p class="muted">Pro úvodní a individuální lekce volejte nebo pište. Domluvíme termín, který vám sedne.</p>
+          </div>
+
+          <div class="card">
+            <div class="eyebrow">Adresa studia</div>
+            <p>
+              Pilates Art, s.r.o.<br>
+              Slavětínská 1146, Klánovické Atrium<br>
+              Praha 9 Klánovice / 190 14
+            </p>
+            <div class="btn-row" style="margin-top:14px">
+              <a class="btn btn-secondary" href="https://goo.gl/maps/uAUBg4Z2cGKxM87x6" target="_blank" style="padding:10px 18px;font-size:14px">Ukázat na mapě</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="eyebrow">Skupinové lekce</div>
+            <h3>Rezervace v online rozvrhu</h3>
+            <p>Skupinové lekce na Reformeru i podložce si rezervujete v rezervačním systému. Po kliknutí budete přesměrována do systému INRS.</p>
+            <div class="btn-row" style="margin-top:14px">
+              <a class="btn btn-primary" href="https://pilatesart.inrs.cz/rs" style="padding:10px 18px;font-size:14px">Otevřít rozvrh</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="eyebrow">Fakturační údaje</div>
+            <p>
+              IČ: 08634335<br>
+              Bankovní spojení: 290580196/2010
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- pravý sloupec: formulář -->
+      <div>
+        <div class="form">
+          <h2>Napište nám</h2>
+          <p class="desc">Chcete se na něco zeptat? Vyplňte formulář a my se vám ozveme.</p>
+          <div class="field">
+            <label>Jméno a příjmení</label>
+            <input type="text" placeholder="Vaše jméno">
+          </div>
+          <div class="field">
+            <label>E-mail</label>
+            <input type="email" placeholder="vas@email.cz">
+          </div>
+          <div class="field">
+            <label>Telefon</label>
+            <input type="tel" placeholder="+420">
+          </div>
+          <div class="field">
+            <label>Zpráva</label>
+            <textarea placeholder="S čím vám můžeme pomoct? Napište nám například, že máte zájem o úvodní lekci."></textarea>
+          </div>
+          <div class="gdpr">
+            <input type="checkbox" id="gdpr">
+            <label for="gdpr" style="font-weight:400;margin:0">Souhlasím se zpracováním osobních údajů dle dokumentu Ochrana osobních údajů.</label>
+          </div>
+          <button class="btn btn-primary" style="width:100%">Odeslat zprávu</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 3. MAPA -->
+<div class="note"><b>Sekce 3 — Mapa a dostupnost</b>Vložená Google mapa se souřadnicemi studia. Údaje o dostupnosti drženy obecně, k upřesnění s klientkou.</div>
+<section style="background:var(--gray-1)">
+  <div class="wrap map">
+    <div class="eyebrow">Kde nás najdete</div>
+    <h2>V Klánovickém Atriu, v srdci Klánovic</h2>
+    <div class="ph">MAPA<br>vložená Google mapa<br>Slavětínská 1146, Praha 9 Klánovice</div>
+    <div class="map-meta">
+      <span><b>Vlakem:</b> zastávka Praha-Klánovice</span>
+      <span><b>Spádová oblast:</b> Klánovice, Újezd nad Lesy, Běchovice, Šestajovice, Jirny, Horní Počernice, Koloděje, Úvaly</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4. FINAL CTA -->
+<div class="note"><b>Sekce 4 — Závěrečné CTA</b>Konverzní tečka i na kontaktní stránce.</div>
+<section class="final">
+  <div class="narrow" style="text-align:center">
+    <h2>Začněte úvodní lekcí</h2>
+    <p class="lead" style="margin:0 auto;max-width:520px">Zavolejte nebo napište a společně najdeme termín vaší úvodní individuální lekce na Reformeru.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="tel:+420603880909">Zavolat: 603 880 909</a>
+      <a class="btn btn-secondary" href="mailto:info@pilatesart.cz">Napsat e-mail</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>Pilates Art, s.r.o.</h4>
+        Slavětínská 1146, Klánovické Atrium<br>
+        Praha 9 Klánovice / 190 14<br>
+        IČ: 08634335<br>
+        <a href="https://goo.gl/maps/uAUBg4Z2cGKxM87x6" target="_blank">Ukázat na mapě</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="tel:+420603880909">+420 603 880 909</a>
+        <a href="mailto:info@pilatesart.cz">info@pilatesart.cz</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+      </div>
+      <div>
+        <h4>Na webu</h4>
+        <a href="jak-zacit.html">Jak začít</a>
+        <a href="lekce-cenik.html">Lekce a ceník</a>
+        <a href="lektorky.html">Lektorky</a>
+        <a href="studio.html">Studio</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div>
+        <h4>Rezervace</h4>
+        <a href="https://pilatesart.inrs.cz/rs">Rozvrh a rezervace</a>
+        <a href="#">Ochrana osobních údajů</a>
+        <a href="#">Provozní řád</a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Pilates Art · The art of movement · Design &amp; vývoj Wextra.cz</div>
+  </div>
+</footer>
+
+</body>
+</html>
